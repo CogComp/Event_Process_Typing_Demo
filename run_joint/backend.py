@@ -22,7 +22,7 @@ if len(sys.argv) > 1:
     debugging = int(sys.argv[1][-1])
 ### Model Initialization ###
 if not debugging:
-    data_bin, model_bin = '../data/wikihow_process/data_subsrl_1sv_1sa_argtrim.bin', './full_model/Roberta_BI/full_model_sptoken_ep121_a1.0_m1-0.1_m2-0.1.bin'
+    data_bin, model_bin = '../data/wikihow_process/data_subsrl_1sv_1sa_argtrim.bin', './full_model/full_model_sptoken_ep121_a1.0_m1-0.1_m2-0.1.bin'
     data = Data()
 
     if os.path.exists(data_bin):

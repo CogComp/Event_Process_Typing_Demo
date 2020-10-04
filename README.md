@@ -32,14 +32,19 @@ For example:
 
 Download .bin files:
 
-    mcd run_joint/
+    cd run_joint/
     mkdir full_model
     cd full_model
-    mkdir Roberta_BI
-    cd Roberta_BI
     wget /path/to/full_model_sptoken_ep121_a1.0_m1-0.1_m2-0.1.bin
-    cd ../..
-    CUDA_VISIBLE_DEVICES=0 python backend.py 0
+    cd ..
+    nohup CUDA_VISIBLE_DEVICES=0 python backend.py 0 > nohup.out 2>&1 &
+    
+./run_joint/backend.py is a backend program for the demo.
+After running backend.py, you can Check whether backend works with:
+
+    curl -d '{"sequence" : "dig a hole@put some seeds@fill the soil@water the soil"}' -H "Content-Type: application/json" -X POST http://dickens.seas.upenn.edu:4035/annotate/
+    
+Open url http://dickens.seas.upenn.edu:4035/ in the browser, then you can play with it!
 
 ./run_joint/console_roberta_bias.py is a console application where the user can type in event processes and obtain the multi-axis type information on-the-fly.  Simple run this program, wait until it loads a pre-trained model, and type in an event process where subevents are separated by '@'. For example, the following input   
 
