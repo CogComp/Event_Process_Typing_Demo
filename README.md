@@ -25,7 +25,7 @@ The program ./run_joint/jointSSmrl_roberta_bias.py runs the experiment for train
   
 For example:  
 
-    CUDA_VISIBLE_DEVICES=4 python jointSSmrl_roberta_bias.py 0 1. 0.1 0.1
+    CUDA_VISIBLE_DEVICES=0 python jointSSmrl_roberta_bias.py 0 1. 0.1 0.1
   
 
 ## Console demo application  
