@@ -1,5 +1,5 @@
 # Semantic Typing of Event Processes (Web Demo Purpose, Not for Release!!!)
-This is the repository for the demo backend of CoNLL 2020 Paper "What Are You Trying Todo? Semantic Typing of Event Processes".
+This is the repository for the demo backend of CoNLL 2020 Paper "What Are You Trying Todo? Semantic Typing of Event Processes". The opensource git repository (not including the demo backend) is https://github.com/CogComp/Event_Process_Typing  
 
 Environment Setup:
     
