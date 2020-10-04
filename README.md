@@ -14,20 +14,6 @@ Environment Setup:
     
 
 
-## Console demo application  
-
-./run_joint/console_roberta_bias.py is a console application where the user can type in event processes and obtain the multi-axis type information on-the-fly.  Simple run this program, wait until it loads a pre-trained model, and type in an event process where subevents are separated by '@'. For example, the following input   
-
-    read papers@attend conferences@go to seminars@write a thesis
-  
-would receive type information such as  
-
-    [('get', 0.6021211743354797), ('retain', 0.6217673718929291), ('absorb', 0.6397878527641296), ('pass', 0.6577234268188477), ('submit', 0.6673179864883423), ('present', 0.6688072383403778)] 
-    [('doctorate', 0.5141586363315582), ('psychology', 0.5413682460784912), ('genetic', 0.5501004457473755), ('science', 0.5507515966892242), ('determinism', 0.5621879994869232), ('grade', 0.5723227560520172)]
-
-Users can also train the model on the full wikiHow event process dataset by running ./runjoint/train_full_roberta_bias.py 
-
-
 ## For demo developers:
 First, our running demo is here: http://dickens.seas.upenn.edu:4035/
 
