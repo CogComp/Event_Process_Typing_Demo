@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="html/main.css">
+</head>
+
+<body>
+  <h1>Semantic Typing of Event Processes</h1>
+  <p>This is a simple demo for CoNLL 2020 Paper "What Are You Trying To Do? Semantic Typing of Event Processes".<br>Given an event process where subevents are separated by '@', the model outputs the intention of it.</p>
+  <p>Example event processes: <br>1) read papers@attend conferences@go to seminars@write a thesis<br>2) dig a hole@put some seeds@fill the soil@water the soil</p>
+  Input An Event Process:<br>
+  <input type="text" id="input"></input>
+  <button id="predict" onclick="predict()">Get Intention</button><br><br>
+  Prediction results<br>
+  Action Type: <span id=intentionVerb></span><br>
+  Object Type: <span id=intentionArg></span><br>
+</body>
+
+<script>
+  function predict(){
+    var input = {"sequence": document.getElementById("input").value};
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function(){
+      if (this.readyState == 4 && this.status == 200) {
+          var response = JSON.parse(this.responseText);
+
+         var i = 0;
+         var verb_result = "";
+         var arg_result = "";
+         for (i = 0; i < response["verb"].length; i++) {
+           if (i < response["verb"].length - 1) {
+               verb_result += response["verb"][i][0] + ", ";
+               arg_result += response["argument"][i][0] + ", ";
+           }
+           else{
+               verb_result += response["verb"][i][0];
+               arg_result += response["argument"][i][0];
+           }
+         }
+         document.getElementById("intentionVerb").innerHTML = verb_result;
+         document.getElementById("intentionArg").innerHTML = arg_result;
+          
+      }
+      else{
+        document.getElementById("intentionVerb").innerHTML = "Did not receive any response from the server! readyState is " + this.readyState.toString() + "; status is " + this.status.toString();
+        document.getElementById("intentionArg").innerHTML = "Did not receive any response from the server! readyState is " + this.readyState.toString() + "; status is " + this.status.toString();
+      }
+    };
+
+    xhttp.open("POST", "http://dickens.seas.upenn.edu:4035/annotate/", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(input));
+  }
+</script>
+</html>

@@ -1,0 +1,9 @@
+git clone https://github.com/CogComp/EventProcessTyping.git
+cd EventProcessTyping
+conda create --prefix ./EPT_env python=3.7
+conda activate ./EPT_env
+pip install -r requirements.txt
+python -m spacy download en_core_web_sm
+conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
+cd ./run_joint
+CUDA_VISIBLE_DEVICES=0 python backend.py 0
