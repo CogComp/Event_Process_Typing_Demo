@@ -36,6 +36,8 @@ After putting the file named
     full_model_sptoken_ep121_a1.0_m1-0.1_m2-0.1.bin
 under folder ./run_joint/full_model/
 
+you can run the backend as follows:
+
     cd run_joint/
     nohup CUDA_VISIBLE_DEVICES=0 python backend.py 0 > nohup.out 2>&1 &
     
