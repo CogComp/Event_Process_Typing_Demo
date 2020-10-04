@@ -43,7 +43,8 @@ Users can also train the model on the full wikiHow event process dataset by runn
 
 
 ## For demo developers:
-First the running demo is here: http://dickens.seas.upenn.edu:4035/
+First, our running demo is here: http://dickens.seas.upenn.edu:4035/
+
 Link to the pre-trained full models for console demo: https://drive.google.com/drive/folders/1b8peVVRNANL7r_Wnyyt4pPsyNROIlOfT?usp=sharing  
 After putting the file named 
 
