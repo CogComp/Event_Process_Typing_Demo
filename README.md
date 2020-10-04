@@ -29,14 +29,14 @@ For example:
   
 
 ## Console demo application  
+Link to the pre-trained full models for console demo: https://drive.google.com/drive/folders/1b8peVVRNANL7r_Wnyyt4pPsyNROIlOfT?usp=sharing  
 
-Download .bin files:
+After putting the file named 
+
+    full_model_sptoken_ep121_a1.0_m1-0.1_m2-0.1.bin
+under folder ./run_joint/full_model/
 
     cd run_joint/
-    mkdir full_model
-    cd full_model
-    wget /path/to/full_model_sptoken_ep121_a1.0_m1-0.1_m2-0.1.bin
-    cd ..
     nohup CUDA_VISIBLE_DEVICES=0 python backend.py 0 > nohup.out 2>&1 &
     
 ./run_joint/backend.py is a backend program for the demo.
