@@ -29,8 +29,22 @@ For example:
   
 
 ## Console demo application  
-Link to the pre-trained full models for console demo: https://drive.google.com/drive/folders/1b8peVVRNANL7r_Wnyyt4pPsyNROIlOfT?usp=sharing  
 
+./run_joint/console_roberta_bias.py is a console application where the user can type in event processes and obtain the multi-axis type information on-the-fly.  Simple run this program, wait until it loads a pre-trained model, and type in an event process where subevents are separated by '@'. For example, the following input   
+
+    read papers@attend conferences@go to seminars@write a thesis
+  
+would receive type information such as  
+
+    [('get', 0.6021211743354797), ('retain', 0.6217673718929291), ('absorb', 0.6397878527641296), ('pass', 0.6577234268188477), ('submit', 0.6673179864883423), ('present', 0.6688072383403778)] 
+    [('doctorate', 0.5141586363315582), ('psychology', 0.5413682460784912), ('genetic', 0.5501004457473755), ('science', 0.5507515966892242), ('determinism', 0.5621879994869232), ('grade', 0.5723227560520172)]
+
+Users can also train the model on the full wikiHow event process dataset by running ./runjoint/train_full_roberta_bias.py 
+
+
+## For demo developers:
+First the running demo is here: http://dickens.seas.upenn.edu:4035/
+Link to the pre-trained full models for console demo: https://drive.google.com/drive/folders/1b8peVVRNANL7r_Wnyyt4pPsyNROIlOfT?usp=sharing  
 After putting the file named 
 
     full_model_sptoken_ep121_a1.0_m1-0.1_m2-0.1.bin
@@ -48,19 +62,8 @@ After running backend.py, you can Check whether backend works with:
     
 Open url http://dickens.seas.upenn.edu:4035/ in the browser, then you can play with it!
 
-./run_joint/console_roberta_bias.py is a console application where the user can type in event processes and obtain the multi-axis type information on-the-fly.  Simple run this program, wait until it loads a pre-trained model, and type in an event process where subevents are separated by '@'. For example, the following input   
+ 
 
-    read papers@attend conferences@go to seminars@write a thesis
-  
-would receive type information such as  
-
-    [('get', 0.6021211743354797), ('retain', 0.6217673718929291), ('absorb', 0.6397878527641296), ('pass', 0.6577234268188477), ('submit', 0.6673179864883423), ('present', 0.6688072383403778)] 
-    [('doctorate', 0.5141586363315582), ('psychology', 0.5413682460784912), ('genetic', 0.5501004457473755), ('science', 0.5507515966892242), ('determinism', 0.5621879994869232), ('grade', 0.5723227560520172)]
-
-Link to the pre-trained full models for console demo: https://drive.google.com/drive/folders/1b8peVVRNANL7r_Wnyyt4pPsyNROIlOfT?usp=sharing  
-Users can also train the model on the full wikiHow event process dataset by running ./runjoint/train_full_roberta_bias.py  
-
-We are working on creating a Web system demonstration, and would update at here soon.
 
 ## Reference
 This work is to be published at the 24th SIGNLL Conference on Computational Natural Language Learning (CoNLL), 2020.  
