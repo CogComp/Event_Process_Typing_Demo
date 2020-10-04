@@ -12,21 +12,7 @@ Environment Setup:
     conda install pytorch torchvision cudatoolkit=10.1 -c pytorch 
 
     
-## Dataset  
-./data contains the wikiHow Event Process Typing dataset contributed in this work. The same folder also contains verb and noun glosses from WordNet, and the SemCor dataset used for WSD.  
-The raw file of wikiHow Event Process Typing dataset is given as data_seq.tsv, where each row records the content and types labels of a process. Specifically, each tab separated row contains a sequence of subevent contents, and the last two cell are the action and object labels.  
-The binary file is a saved instance of the data.py object in utils, which has already read the process data and label glosses, and provided necessary indexing information to split, train and test.  
-./process archives several programs for dataset proprocessing.  
 
-## Run the experiment  
-The program ./run_joint/jointSSmrl_roberta_bias.py runs the experiment for training and testing with excluded 10\% test split. It should execute with the following pattern  
-
-    python jointSSmrl_roberta_bias.py <skip_training> <alpha> <margin_1> <margin_2>  
-  
-For example:  
-
-    CUDA_VISIBLE_DEVICES=0 python jointSSmrl_roberta_bias.py 0 1. 0.1 0.1
-  
 
 ## Console demo application  
 
@@ -63,18 +49,5 @@ After running backend.py, you can check whether backend works with:
 Open url http://dickens.seas.upenn.edu:4035/ in the browser, then you can play with it!
 
  
-
-
-## Reference
-This work is to be published at the 24th SIGNLL Conference on Computational Natural Language Learning (CoNLL), 2020.  
-Bibtex:
-  
-    @inproceedings{chen-etal-2020-what,
-      title = {``What Are You Trying To Do?'' Semantic Typing of Event Processes},
-      author = "Chen, Muhao and Zhang, Hongming and Wang, Haoyu and Roth, Dan",
-      booktitle = "Proceedings of the 24th Conference on Computational Natural Language Learning (CoNLL)",
-      year = "2020",
-      publisher = "Association for Computational Linguistics"
-    }
 
 
