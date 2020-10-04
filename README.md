@@ -54,7 +54,7 @@ under folder ./run_joint/full_model/
 you can run the backend as follows:
 
     cd run_joint/
-    nohup CUDA_VISIBLE_DEVICES=0 python backend.py 0 > nohup.out 2>&1 &
+    CUDA_VISIBLE_DEVICES=0 nohup python backend.py 0 > nohup.out 2>&1 &
     
 After running backend.py, you can check whether backend works with:
 
