@@ -1,14 +1,17 @@
 # Semantic Typing of Event Processes
 This is the repository for the resources in CoNLL 2020 Paper "What Are You Trying Todo? Semantic Typing of Event Processes". This repository contains the source code and links to some datasets used in our paper.
 
-Environment:
+Environment Setup:
+    
+    git clone https://github.com/CogComp/EventProcessTyping.git
+    cd EventProcessTyping
+    conda create --prefix ./STEP_env python=3.7
+    conda activate ./STEP_env
+    pip install -r requirements.txt
+    python -m spacy download en_core_web_sm
+    conda install pytorch torchvision cudatoolkit=10.1 -c pytorch 
 
-    python 3.6
-    Transformers (Hugging) version 2.11.0 (Important)
-    PyTorch
-    nltk
-    AllenNLP
-  
+    
 ## Dataset  
 ./data contains the wikiHow Event Process Typing dataset contributed in this work. The same folder also contains verb and noun glosses from WordNet, and the SemCor dataset used for WSD.  
 The raw file of wikiHow Event Process Typing dataset is given as data_seq.tsv, where each row records the content and types labels of a process. Specifically, each tab separated row contains a sequence of subevent contents, and the last two cell are the action and object labels.  
@@ -26,6 +29,17 @@ For example:
   
 
 ## Console demo application  
+
+Download .bin files:
+
+    mcd run_joint/
+    mkdir full_model
+    cd full_model
+    mkdir Roberta_BI
+    cd Roberta_BI
+    wget /path/to/full_model_sptoken_ep121_a1.0_m1-0.1_m2-0.1.bin
+    cd ../..
+    CUDA_VISIBLE_DEVICES=0 python backend.py 0
 
 ./run_joint/console_roberta_bias.py is a console application where the user can type in event processes and obtain the multi-axis type information on-the-fly.  Simple run this program, wait until it loads a pre-trained model, and type in an event process where subevents are separated by '@'. For example, the following input   
 
