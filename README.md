@@ -56,8 +56,7 @@ you can run the backend as follows:
     cd run_joint/
     nohup CUDA_VISIBLE_DEVICES=0 python backend.py 0 > nohup.out 2>&1 &
     
-./run_joint/backend.py is a backend program for the demo.
-After running backend.py, you can Check whether backend works with:
+After running backend.py, you can check whether backend works with:
 
     curl -d '{"sequence" : "dig a hole@put some seeds@fill the soil@water the soil"}' -H "Content-Type: application/json" -X POST http://dickens.seas.upenn.edu:4035/annotate/
     
