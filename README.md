@@ -1,4 +1,4 @@
-# Semantic Typing of Event Processes
+# Semantic Typing of Event Processes (Web Demo Purpose, Not for Release!!!)
 This is the repository for the resources in CoNLL 2020 Paper "What Are You Trying Todo? Semantic Typing of Event Processes". This repository contains the source code and links to some datasets used in our paper.
 
 Environment Setup:
