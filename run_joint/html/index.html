@@ -9,10 +9,27 @@
   <h1>Semantic Typing of Event Processes</h1>
   <p>This is a simple demo for CoNLL 2020 Paper "What Are You Trying To Do? Semantic Typing of Event Processes".<br>Given an event process where subevents are separated by '@', the model outputs the intention of it.</p>
   <p>Example event processes: <br>1) read papers@attend conferences@go to seminars@write a thesis<br>2) dig a hole@put some seeds@fill the soil@water the soil</p>
-  <p>Input An Event Process:</p>
-  <input type="text" id="input"></input>
-  <button id="predict" onclick="predict()">Get Intention</button><br><br>
-  <p>Prediction results</p>
+  <p>Input An Event Process: (Click twice to select a sample input. Please wait a second for the results to pop up!)</p>
+  <div class="changeDiv">
+            <a></a>
+            <input id="input" type="text" list="samplelist" size="100">
+            <datalist id="samplelist">
+            <option>read papers@attend conferences@go to seminars@write a thesis</option>
+            <option>dig a hole@put some seeds@fill the soil@water the soil</option>
+            <option>make a dough@add toppings@preheat the oven@bake the dough</option>
+            <option>fill a highball with ice@add vodka@add pineapple juice@stir with a bar</option>
+	    </datalist>
+  </div><br>
+	<button style="background-color: lightblue; height: 25px; width: 100px" onclick="predict()">Get Intention!</button>
+	<!-- and <input type="text" id="input"></input>  
+  <button id="predict" onclick="predict()">Get Intention</button>
+  	<select  id="sid" οnchange="selectcity()">
+   			<option>-----</option>
+   			<option>read papers@attend conferences@go to seminars@write a thesis</option>
+   			<option>dig a hole@put some seeds@fill the soil@water the soil</option>
+   			<option>make a dough@add toppings@preheat the oven@bake the dough</option>
+   			<option>Fill a highball with ice@Add vodka@Add pineapple juice@Stir with a bar</option>
+	</select>-->
   <p>Action Type:</p> 
   <span id=intentionVerb0></span><br>
   <span id=intentionVerb1></span><br>
@@ -20,7 +37,6 @@
   <span id=intentionVerb3></span><br>
   <span id=intentionVerb4></span><br>
   <span id=intentionVerb5></span><br>
-  <br>
   <p>Object Type:</p>
   <span id=intentionArg0></span><br>
   <span id=intentionArg1></span><br>
@@ -28,6 +44,7 @@
   <span id=intentionArg3></span><br>
   <span id=intentionArg4></span><br>
   <span id=intentionArg5></span><br>
+  <p>Note: the numbers are cosine distances.</p>
 </body>
 
 <script>
