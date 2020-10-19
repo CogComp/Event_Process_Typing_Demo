@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="html/main.css">
+</head>
+
+<body>
+  <h1>Semantic Typing of Event Processes</h1>
+  <p>This is a simple demo for CoNLL 2020 Paper "What Are You Trying To Do? Semantic Typing of Event Processes".<br>Given an event process where subevents are separated by '@', the model outputs the intention of it.</p>
+  <p>Example event processes: <br>1) read papers@attend conferences@go to seminars@write a thesis<br>2) dig a hole@put some seeds@fill the soil@water the soil</p>
+  <p>Input An Event Process: (Click twice to select a sample input. Please wait a second for the results to pop up!)</p>
+  <div class="changeDiv">
+            <a></a>
+            <input id="input" type="text" list="samplelist" size="100">
+            <datalist id="samplelist">
+            <option>read papers@attend conferences@go to seminars@write a thesis</option>
+            <option>dig a hole@put some seeds@fill the soil@water the soil</option>
+            <option>make a dough@add toppings@preheat the oven@bake the dough</option>
+            <option>fill a highball with ice@add vodka@add pineapple juice@stir with a bar</option>
+	    </datalist>
+  </div><br>
+	<button style="background-color: lightblue; height: 25px; width: 100px" onclick="predict()">Get Intention!</button>
+	<!-- and <input type="text" id="input"></input>  
+  <button id="predict" onclick="predict()">Get Intention</button>
+  	<select  id="sid" οnchange="selectcity()">
+   			<option>-----</option>
+   			<option>read papers@attend conferences@go to seminars@write a thesis</option>
+   			<option>dig a hole@put some seeds@fill the soil@water the soil</option>
+   			<option>make a dough@add toppings@preheat the oven@bake the dough</option>
+   			<option>Fill a highball with ice@Add vodka@Add pineapple juice@Stir with a bar</option>
+	</select>-->
+  <p>Action Type:</p> 
+  <span id=intentionVerb0></span><br>
+  <span id=intentionVerb1></span><br>
+  <span id=intentionVerb2></span><br>
+  <span id=intentionVerb3></span><br>
+  <span id=intentionVerb4></span><br>
+  <span id=intentionVerb5></span><br>
+  <p>Object Type:</p>
+  <span id=intentionArg0></span><br>
+  <span id=intentionArg1></span><br>
+  <span id=intentionArg2></span><br>
+  <span id=intentionArg3></span><br>
+  <span id=intentionArg4></span><br>
+  <span id=intentionArg5></span><br>
+  <p>Note: the numbers are cosine distances.</p>
+</body>
+
+<script>
+  function predict(){
+    var input = {"sequence": document.getElementById("input").value};
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function(){
+      if (this.readyState == 4 && this.status == 200) {
+          var response = JSON.parse(this.responseText);
+
+         var i = 0;
+         var verb_result = "";
+         var arg_result = "";
+	 document.getElementById("intentionVerb0").innerHTML = response["verb"][0];
+	 document.getElementById("intentionVerb1").innerHTML = response["verb"][1];
+	      document.getElementById("intentionVerb2").innerHTML = response["verb"][2];
+	      document.getElementById("intentionVerb3").innerHTML = response["verb"][3];
+	      document.getElementById("intentionVerb4").innerHTML = response["verb"][4];
+	      document.getElementById("intentionVerb5").innerHTML = response["verb"][5];
+	      document.getElementById("intentionArg0").innerHTML = response["argument"][0];
+	      document.getElementById("intentionArg1").innerHTML = response["argument"][1];
+	      document.getElementById("intentionArg2").innerHTML = response["argument"][2];
+	      document.getElementById("intentionArg3").innerHTML = response["argument"][3];
+	      document.getElementById("intentionArg4").innerHTML = response["argument"][4];
+	      document.getElementById("intentionArg5").innerHTML = response["argument"][5];
+      }
+      else{
+        document.getElementById("intentionVerb0").innerHTML = "Did not receive any response from the server! readyState is " + this.readyState.toString() + "; status is " + this.status.toString();
+        document.getElementById("intentionArg0").innerHTML = "Did not receive any response from the server! readyState is " + this.readyState.toString() + "; status is " + this.status.toString();
+      }
+    };
+
+    xhttp.open("POST", "http://dickens.seas.upenn.edu:4035/annotate/", true);
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.send(JSON.stringify(input));
+  }
+</script>
+</html>

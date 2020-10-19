@@ -1,85 +1,64 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="html/main.css">
+    <meta charset="UTF-8">
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0">
+    <title>Semantic Typing of Event Processes Demo</title>
+    <link rel="stylesheet" type="text/css" href="./html/w3.css">
+	<script src="./html/jquery-3.5.1.min.js"></script>
+	<script src="./html/demo.js"></script>
+    <style>
+    </style>
 </head>
-
 <body>
-  <h1>Semantic Typing of Event Processes</h1>
-  <p>This is a simple demo for CoNLL 2020 Paper "What Are You Trying To Do? Semantic Typing of Event Processes".<br>Given an event process where subevents are separated by '@', the model outputs the intention of it.</p>
-  <p>Example event processes: <br>1) read papers@attend conferences@go to seminars@write a thesis<br>2) dig a hole@put some seeds@fill the soil@water the soil</p>
-  <p>Input An Event Process: (Click twice to select a sample input. Please wait a second for the results to pop up!)</p>
-  <div class="changeDiv">
-            <a></a>
-            <input id="input" type="text" list="samplelist" size="100">
-            <datalist id="samplelist">
-            <option>read papers@attend conferences@go to seminars@write a thesis</option>
-            <option>dig a hole@put some seeds@fill the soil@water the soil</option>
-            <option>make a dough@add toppings@preheat the oven@bake the dough</option>
-            <option>fill a highball with ice@add vodka@add pineapple juice@stir with a bar</option>
-	    </datalist>
-  </div><br>
-	<button style="background-color: lightblue; height: 25px; width: 100px" onclick="predict()">Get Intention!</button>
-	<!-- and <input type="text" id="input"></input>  
-  <button id="predict" onclick="predict()">Get Intention</button>
-  	<select  id="sid" οnchange="selectcity()">
-   			<option>-----</option>
-   			<option>read papers@attend conferences@go to seminars@write a thesis</option>
-   			<option>dig a hole@put some seeds@fill the soil@water the soil</option>
-   			<option>make a dough@add toppings@preheat the oven@bake the dough</option>
-   			<option>Fill a highball with ice@Add vodka@Add pineapple juice@Stir with a bar</option>
-	</select>-->
-  <p>Action Type:</p> 
-  <span id=intentionVerb0></span><br>
-  <span id=intentionVerb1></span><br>
-  <span id=intentionVerb2></span><br>
-  <span id=intentionVerb3></span><br>
-  <span id=intentionVerb4></span><br>
-  <span id=intentionVerb5></span><br>
-  <p>Object Type:</p>
-  <span id=intentionArg0></span><br>
-  <span id=intentionArg1></span><br>
-  <span id=intentionArg2></span><br>
-  <span id=intentionArg3></span><br>
-  <span id=intentionArg4></span><br>
-  <span id=intentionArg5></span><br>
-  <p>Note: the numbers are cosine distances.</p>
+<div class="main">
+	<form action="POST" id="demoForm" name="demoForm">
+		<div class="w3-container">
+			<div class="w3-left">
+				<label> Examples </label>
+				<br>
+				<select class="w3-select w3-pale-yellow w3-border" id="examples" name="examples" value="" onChange="javascript:newExampleSelect();" style="width:512px;">
+					<!--<option value="">Select an example... -->
+				</select>
+			</div>
+		</div>
+		<div class="w3-container">
+			<label>Event process (choose an example or write the subevents of a process separated by '@' to get its intention)</label>
+			<br>
+			<input class="w3-input w3-border" id="text" name="text">
+		</div>
+		<div class="w3-container">
+			<button class="w3-button w3-blue" onClick="javascript:return formSubmit();"> Get intention > </button>
+		</div>
+	</form>
+</div>
+
+<div id="working" class="w3-container">Working...</div>
+<div id="result" class="w3-painel w3-center w3-centered">
+	&nbsp;
+	<br>
+	<div class="w3-container">
+		<h1><div id="intention" class="w3-panel w3-border w3-center w3-pale-green" style="margin:auto; width:768px;""> -intention- </div></h1>
+		<br>
+		<table align="center" class="w3-table w3-border w3-centered" style="width:768px; max-width:90%;">
+			<tr>
+				<th class="w3-light-grey" width="25%"> Cosine<br>similarity </th>
+				<th class="w3-light-grey" width="25%"> Action </th>
+				<th class="w3-light-grey" width="25%"> Object </th>
+				<th class="w3-light-grey" width="25%"> Cosine<br>similarity </th>
+			</tr>
+			<tr><td id="as0"> - </td><td id="at0"> - </td><td id="ot0"> - </td><td id="os0"> - </td></tr>
+			<tr><td id="as1"> - </td><td id="at1"> - </td><td id="ot1"> - </td><td id="os1"> - </td></tr>
+			<tr><td id="as2"> - </td><td id="at2"> - </td><td id="ot2"> - </td><td id="os2"> - </td></tr>
+			<tr><td id="as3"> - </td><td id="at3"> - </td><td id="ot3"> - </td><td id="os3"> - </td></tr>
+			<tr><td id="as4"> - </td><td id="at4"> - </td><td id="ot4"> - </td><td id="os4"> - </td></tr>
+		</table>
+	</div>
+</div>
+
+<script>fillExamplesSelectField();</script>
 </body>
-
-<script>
-  function predict(){
-    var input = {"sequence": document.getElementById("input").value};
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function(){
-      if (this.readyState == 4 && this.status == 200) {
-          var response = JSON.parse(this.responseText);
-
-         var i = 0;
-         var verb_result = "";
-         var arg_result = "";
-	 document.getElementById("intentionVerb0").innerHTML = response["verb"][0];
-	 document.getElementById("intentionVerb1").innerHTML = response["verb"][1];
-	      document.getElementById("intentionVerb2").innerHTML = response["verb"][2];
-	      document.getElementById("intentionVerb3").innerHTML = response["verb"][3];
-	      document.getElementById("intentionVerb4").innerHTML = response["verb"][4];
-	      document.getElementById("intentionVerb5").innerHTML = response["verb"][5];
-	      document.getElementById("intentionArg0").innerHTML = response["argument"][0];
-	      document.getElementById("intentionArg1").innerHTML = response["argument"][1];
-	      document.getElementById("intentionArg2").innerHTML = response["argument"][2];
-	      document.getElementById("intentionArg3").innerHTML = response["argument"][3];
-	      document.getElementById("intentionArg4").innerHTML = response["argument"][4];
-	      document.getElementById("intentionArg5").innerHTML = response["argument"][5];
-      }
-      else{
-        document.getElementById("intentionVerb0").innerHTML = "Did not receive any response from the server! readyState is " + this.readyState.toString() + "; status is " + this.status.toString();
-        document.getElementById("intentionArg0").innerHTML = "Did not receive any response from the server! readyState is " + this.readyState.toString() + "; status is " + this.status.toString();
-      }
-    };
-
-    xhttp.open("POST", "http://dickens.seas.upenn.edu:4035/annotate/", true);
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(input));
-  }
-</script>
 </html>
+
